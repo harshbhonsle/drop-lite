@@ -14,16 +14,6 @@ const app = express();
 app.use(express.json());
 
 
-const allowedOrigins = ['https://drop-lite.vercel.app', 'http://localhost:5173'];
-
-// ✅ Apply CORS middleware BEFORE routes
-app.use(cors({
-  origin: allowedOrigins,
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
-}));
-
 // ✅ Global rate limiter (optional, or apply per route below)
 const globalLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
