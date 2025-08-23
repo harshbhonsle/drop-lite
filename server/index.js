@@ -5,6 +5,9 @@ import uploadFile from "./api/uploadFile.js";
 import downloadFile from "./api/downloadFile.js";
 import rateLimit from 'express-rate-limit'; // ✅ Step 1: Import rate limiter
 
+const app = express();
+app.use(express.json());
+
 
 dotenv.config({
     path:'./.env'
@@ -28,9 +31,6 @@ app.use(cors({
 // Handle preflight requests (OPTIONS)
 app.options('*', cors());
 
-
-const app = express();
-app.use(express.json());
 
 
 // ✅ Global rate limiter (optional, or apply per route below)
