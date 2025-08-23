@@ -13,23 +13,23 @@ dotenv.config({
     path:'./.env'
 })
 
-const allowedOrigins = ['https://drop-lite.vercel.app'];
+// const allowedOrigins = ['https://drop-lite.vercel.app'];
 
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true,  // only if your frontend sends cookies or auth headers
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-}));
+// app.use(cors({
+//   origin: function (origin, callback) {
+//     if (!origin || allowedOrigins.includes(origin)) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error('Not allowed by CORS'));
+//     }
+//   },
+//   credentials: true,  // only if your frontend sends cookies or auth headers
+//   methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//   allowedHeaders: ['Content-Type', 'Authorization'],
+// }));
 
-// Handle preflight requests (OPTIONS)
-app.options('*', cors());
+// // Handle preflight requests (OPTIONS)
+// app.options('*', cors());
 
 
 
