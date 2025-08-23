@@ -8,7 +8,8 @@ import rateLimit from 'express-rate-limit'; // ✅ Step 1: Import rate limiter
 const app = express();
 app.use(express.json());
 
-app.set('trust proxy', true); 
+// ✅ Safe setting for Render or any single-proxy setup
+app.set('trust proxy', 1);
 
 dotenv.config({
     path:'./.env'
