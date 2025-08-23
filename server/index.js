@@ -7,9 +7,22 @@ import rateLimit from 'express-rate-limit'; // ✅ Step 1: Import rate limiter
 
 dotenv.config();
 
+
+
+
 const app = express();
 app.use(express.json());
-app.use(cors());
+
+
+const allowedOrigins = ['https://drop-lite.vercel.app', 'http://localhost:5173'];
+
+// ✅ Apply CORS middleware BEFORE routes
+app.use(cors({
+  origin: allowedOrigins,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+}));
 
 // ✅ Global rate limiter (optional, or apply per route below)
 const globalLimiter = rateLimit({
