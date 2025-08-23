@@ -5,9 +5,28 @@ import uploadFile from "./api/uploadFile.js";
 import downloadFile from "./api/downloadFile.js";
 import rateLimit from 'express-rate-limit'; // ✅ Step 1: Import rate limiter
 
-dotenv.config();
 
+dotenv.config({
+    path:'./.env'
+})
 
+const allowedOrigins = ['https://drop-lite.vercel.app'];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,  // only if your frontend sends cookies or auth headers
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
+
+// Handle preflight requests (OPTIONS)
+app.options('*', cors());
 
 
 const app = express();
