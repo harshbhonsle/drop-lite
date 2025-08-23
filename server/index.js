@@ -8,6 +8,7 @@ import rateLimit from 'express-rate-limit'; // ✅ Step 1: Import rate limiter
 const app = express();
 app.use(express.json());
 
+app.set('trust proxy', true); 
 
 dotenv.config({
     path:'./.env'
