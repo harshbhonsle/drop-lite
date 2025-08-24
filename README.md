@@ -37,6 +37,10 @@ DropLite is a lightweight, privacy-first file sharing app that lets users upload
 
 
 ---
+## 📦Upload Limit
+DropLite supports uploading images and videos up to 100MB per file, in accordance with the limits of the Cloudinary free plan.
+
+⚠️ Files larger than 100MB will be rejected during upload. Consider compressing or splitting large files before sharing.
 
 ## 📦 API Endpoints
 
