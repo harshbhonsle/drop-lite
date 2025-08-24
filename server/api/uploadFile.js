@@ -168,7 +168,7 @@ router.post('/upload', uploadLimit, uploadFiles, async (req, res) => {
     });
   }
 });
-
+  // router to check in db for link
 router.get('/f/:fileId', async (req, res) => {
   const { fileId } = req.params;
 
