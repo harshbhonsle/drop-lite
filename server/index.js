@@ -9,11 +9,29 @@ const app = express();
 app.use(express.json());
 
 // ✅ Safe setting for Render or any single-proxy setup
-app.set('trust proxy', 1);
+app.set('trust proxy', 'loopback');
+
 
 dotenv.config({
     path:'./.env'
 })
+
+const allowedOrigins = ['https://drop-lite.vercel.app' ,"http://localhost:5173"];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type'],
+}));
+
+
 
 // const allowedOrigins = ['https://drop-lite.vercel.app'];
 
@@ -58,6 +76,11 @@ app.use("/upload-file", uploadFile);
 
 
 app.use("/download-file", downloadFile);
+
+// ✅ Catch-all route for undefined paths
+app.use((req, res) => {
+  res.status(404).json({ message: `The URL ${req.originalUrl} doesn't exist` });
+});
 
 // Server
 const PORT = process.env.PORT || 5000;
