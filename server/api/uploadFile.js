@@ -169,4 +169,36 @@ router.post('/upload', uploadLimit, uploadFiles, async (req, res) => {
   }
 });
 
+router.get('/f/:fileId', async (req, res) => {
+  const { fileId } = req.params;
+
+  // Query the database for the file
+  db.get(
+    'SELECT * FROM files WHERE id = ?',
+    [fileId],
+    (err, row) => {
+      if (err) {
+        console.error('Database error:', err);
+        return res.status(500).json({ success: false, error: 'Internal server error' });
+      }
+
+      if (!row) {
+        return res.status(404).json({ success: false, error: 'File not found' });
+      }
+
+      const now = new Date();
+      const expiresAt = new Date(row.expires_at);
+
+      // Check if link is expired
+      if (now > expiresAt) {
+        return res.status(410).json({ success: false, error: 'This link has expired' });
+      }
+
+      // Redirect to the Cloudinary URL
+      return res.redirect(row.cloudinary_url);
+    }
+  );
+});
+
+
 export default router;
